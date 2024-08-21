@@ -1,0 +1,17 @@
+{
+  "name": "webpack-webextension-nope",
+  "version": "1.0.0",
+  "description": "Package for the NOPE web extension",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "ffjavascript": "^0.3.0"
+  }
+}

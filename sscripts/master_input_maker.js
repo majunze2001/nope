@@ -1,0 +1,1 @@
+../circuits/test/helpers/master_input_maker.js

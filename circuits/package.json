@@ -1,0 +1,20 @@
+{
+  "name": "NOPE Circuit Test",
+  "version": "1.0.0",
+  "description": "Tests for NOPE",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --max-old-space-size=4000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^4.3.10",
+    "circom_tester": "^0.0.20",
+    "ffjavascript": "^0.2.62",
+    "mocha": "^10.2.0"
+  }
+}

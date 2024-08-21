@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+dnssec-chain/data
+dnssec-chain/dnssec.txt
+dv/*.txt
+nope/*.txt

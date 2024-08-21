@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+  "version": "1.0.3",
+  "name": "NOPE Client Extension",
+  "description": "An extension for performing NOPE validation in the browser.",
+  "permissions": [
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "http://*/*",
+    "https://*/*",
+    "<all_urls>"
+  ],
+  "browser_action": {
+    "default_icon": "src/icons8-nope-32.png"
+  },
+  "background": {
+    "scripts": ["background_scripts/index.js"],
+    "persistent": true
+  },
+  "content_security_policy": "script-src 'self' 'wasm-unsafe-eval';"
+}
