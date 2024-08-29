@@ -2,7 +2,7 @@
 # Should be run with `taskset` 
 
 # Bench iterations
-ITER=100
+ITER=10
 
 # files to be checked
 NAMES=("rsa-rsa" "rsa-ecdsa" "ecdsa-ecdsa" "ecdsa-rsa")

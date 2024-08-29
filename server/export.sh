@@ -83,7 +83,7 @@ for NAME in ${NAMES[@]}; do
 done
 
 # if push.sh exists, we push the key files to cloud
-if [ ! -f "push.sh" ]; then
+if [ -f "push.sh" ]; then
   ./push.sh
 fi
 

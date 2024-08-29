@@ -44,6 +44,7 @@ RUN echo "reviewer ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 # modify bashrc to clean up terminal
 RUN echo "export PS1='\W > '" >> /home/reviewer/.bashrc
 # configure environment
+ENV NODE_PATH=/usr/local/lib/node_modules
 USER reviewer
 WORKDIR /home/reviewer
 CMD ["/bin/bash", "-l"]

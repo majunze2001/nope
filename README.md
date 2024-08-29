@@ -61,6 +61,9 @@ These are provided to make deploying NOPE on your own DNS server easier.
 The following instructions will reproduce the results in the paper,
 figure by figure, on either the DNS server or the Docker container.
 
+Note that the description for reproducing each figure is self-contained,
+and thus the figures can be reproduced in any order.
+
 ### Figure 3 (1-2 minutes to run to completion)
 
 To reproduce Figure 3, navigate to the `extension/bench/` directory and run the following commands:
@@ -75,7 +78,7 @@ Note that this does not reproduce the final "time (native)" column in Figure 3.
 That column is estimated, and we will explain the estimation process in
 the next version of the paper.
 
-### Figure 4 (roughly an hour to run, but the bulk can be skipped)
+### Figure 4 (several hours to run, but the bulk can be skipped)
 
 Reproducing Figure 4 is a several step process.
 We indicate which steps apply to which bars in the figure inline.
@@ -87,7 +90,7 @@ First, navigate to the `server/` directory and run the following two commands to
 ./export.sh
 ```
 
-_These commands take nearly an hour to run to completion; however, in
+_These commands take several hours to run to completion; however, in
 the running DNS server, we have pre-executed them to save time in
 evaluation, so it is safe to skip them if desired (if you are using the Docker
 container, they will need to be executed). They correspond to a one-time cost for a server owner._
@@ -101,7 +104,7 @@ python3 parse.py
 
 In the figure, this corresponds to "proof generation" and handles the generation of Certificate Signing Request with NOPE proof embedded.
 
-_These commands take 4-5 minutes to run to completion._
+_These commands take 40-50 minutes to run to completion._
 
 Third, navigate to the `server/src/` directory and run the following command to begin the ACME protocol with Let's Encrypt.
 
@@ -141,7 +144,7 @@ To summarize the results, run
 python3 ../scripts/summarize.py dat
 ```
 
-### Figure 5 (20-30 minutes)
+### Figure 5 (40-50 minutes)
 
 To reproduce the results in Figure 5, navigate to the `circuits/bench/` directory and run the following two commands:
 
@@ -152,7 +155,7 @@ python3 tochart.py
 
 The `tochart.py` script uses these results to estimate the effect of NOPE's optimizations on constraint count, prover time, and memory usage (consistent with macrobenchmarks).
 
-_These commands take 20-30 minutes to run to completion, with `count.sh` taking a few minutes_.
+_These commands take 40-50 minutes to run to completion, with `count.sh` taking the bulk of the time._
 
 We have also included a `./run.sh` script which compiles and runs the full pipeline for the most expensive circuit to demonstrate the full process with dummy data.
 Note that the `run.sh` script requires `npm install` to be run in the `circuits/` directory first.
