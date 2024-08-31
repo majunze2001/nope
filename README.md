@@ -78,6 +78,11 @@ Note that this does not reproduce the final "time (native)" column in Figure 3.
 That column is estimated, and we will explain the estimation process in
 the next version of the paper.
 
+Additionally, to interpret these results relative to our initial submission, please note the following.
+- size (in the artifact) and Bandwidth (in the submission) are the same thing.
+- Time and Variance (in the artifact) are the same thing as the submission's "time (JS)" column (the submission reports in the format "time (+/- variance) ms").
+- Also, DV (in the artifact) refers to Legacy (in the submission), and NOPE (in the artifact) refers to DOVE (in the submission).
+
 ### Figure 4 (several hours to run, but the bulk can be skipped)
 
 Reproducing Figure 4 is a several step process.
