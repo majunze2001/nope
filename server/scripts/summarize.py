@@ -1,5 +1,27 @@
 import os
+import re
 import sys
+
+# Function to convert 'real' time from the format 'XmYs' to seconds
+def convert_to_seconds(real_time):
+    match = re.match(r'(\d+)m(\d+\.\d+)s', real_time)
+    if match:
+        minutes = int(match.group(1))
+        seconds = float(match.group(2))
+        return minutes * 60 + seconds
+    else:
+        return 0.0
+
+# Function to parse a single log file
+def parse_log_file(filepath):
+    with open(filepath, 'r') as file:
+        real_times = []
+        for line in file:
+            line = line.strip()
+            if line.startswith('real'):
+                _, real_time = line.split()
+                real_times.append(convert_to_seconds(real_time))
+        return real_times
 
 def is_valid_directory(directory):
     return os.path.isdir(directory)
@@ -25,6 +47,21 @@ def parse_dat_file(file_path):
 
     return acme_initiation, dns_propagation, acme_verification
 
+def parse_circ_for_proof_gen():
+    # loop over files in ../bench/dat
+    total_time = 0
+    total_runs = 0
+    for filename in os.listdir('../bench/dat'):
+        # if filename ends with man.log, skip it
+        if filename.endswith('man.log'):
+            continue
+        elif filename.endswith('.log'):
+            filepath = os.path.join('../bench/dat', filename)
+            real_times = parse_log_file(filepath)
+            total_time += sum(real_times)
+            total_runs += len(real_times)
+    return total_time / total_runs
+
 def main(directory):
     if not is_valid_directory(directory):
         print(f"Error: {directory} is not a valid directory.")
@@ -49,9 +86,11 @@ def main(directory):
     avg_acme_initiation = total_acme_initiation / len(dat_files)
     avg_dns_propagation = total_dns_propagation / len(dat_files)
     avg_acme_verification = total_acme_verification / len(dat_files)
+    avg_proof_gen = parse_circ_for_proof_gen()
 
+    print(f"Average Proof Generation Time: {avg_proof_gen:.2f} seconds")
     print(f"Average ACME Initiation Time: {avg_acme_initiation:.2f} seconds")
-    print(f"Average DNS Propagation Time: {avg_dns_propagation:.2f} seconds")
+    print(f"Average DNS Propagation Time: 30 second minimum from certbot, (you took {avg_dns_propagation:.2f} seconds)")
     print(f"Average ACME Verification Time: {avg_acme_verification:.2f} seconds")
 
 if __name__ == "__main__":
