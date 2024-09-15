@@ -86,6 +86,10 @@ Additionally, to interpret these results relative to our initial submission, ple
 ### Figure 4 (several hours to run, but the bulk can be skipped)
 
 Reproducing Figure 4 is a several step process.
+Please note that, unlike with the other figures, reproducing some of this one
+requires access, at one point, to the running DNS server (that is, it cannot be
+completed solely on Docker). We indicate where below.
+
 We indicate which steps apply to which bars in the figure inline.
 
 First, navigate to the `server/` directory and run the following two commands to build the circuits and export (*insecure*) proving keys.
@@ -119,7 +123,7 @@ python3 app.py --time_it -e admin@nope-tools.org -d nope-tools.org
 
 Note that this part involves updating DNS records and is subject to ACME
 rate limiting, so, for the sake of benchmarking, we require manual input.
-That is, the script will pause halfway and prompt a manual DNS update, for example:
+That is, the script will pause halfway and prompt a manual DNS zone file update, for example:
 
 ```
 Please create a DNS TXT record in your zone:
@@ -128,14 +132,26 @@ _acme-challenge.nope-tools.org. IN      TXT     "-3MFg8LCoTFR-gVQuJaUGsLy8agudB7
 
 The time from ACME start to this prompt is "ACME Initiation" in the figure.
 
-To manually edit the DNS record, run `sudo vim /var/cache/bind/nope-tools.org` to open the zone file and make the following two edits.
+The next piece must happen on the running DNS server, because it
+involves updating the DNS configuration of the nope-tools.org domain.
+So, if running on Docker, you now need to log in to the provided `nope-tools.org` DNS
+server to modify the zone file.
+If you are already on the DNS server, just follow the instructions below.
+
+Run `sudo vim /var/cache/bind/nope-tools.org` to open the zone file and make the following two edits.
 
 1. Increment the serial number.
-2. Replace the line prefixed by `_acme-challenge.nope-tools.org.` with the line provided by the script.
+2. Replace the line prefixed by `_acme-challenge.nope-tools.org.` with
+the prompt above, from the `app.py` script.
 
-After saving the new zone file, run `sudo systemctl reload bind9` to publish the new records.
+After saving the new zone file,
+run `sudo systemctl reload bind9` on the DNS server
+to publish the new records.
 
-After waiting 10-30 seconds, return to the script and press `Enter` to continue with the ACME process.
+Now, if you are running on Docker, you can exit the DNS server and return to the script.
+If you are on the DNS server, you can just return to the script.
+
+After waiting 10-30 seconds, press `Enter` on the prompt to continue with the ACME process.
 
 The time from pressing `Enter` to the end of the script is "ACME Verification" in the figure.
 
