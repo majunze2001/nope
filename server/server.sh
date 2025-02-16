@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -exo pipefail
+
 SRC_PATH="./bin"
 SCRIPT_PATH="./scripts"
 FILEEXTS=(".r1cs" ".params" "-vk.json")
@@ -71,8 +73,11 @@ if [ -n "$KEY" ]; then
     fi
 else
     KEY="$SRC_PATH/$DOMAIN.key"
-    echo "Generate new TLS key to $KEY"
-    openssl genrsa -out $KEY 2048 
+    # reuse previous key if exists
+    if [ ! -f "$KEY" ]; then
+        echo "Generate new TLS key to $KEY"
+        openssl genrsa -out $KEY 2048 
+    fi
 fi
 
 # MODE construction

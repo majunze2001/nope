@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y sudo \
 RUN curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 # clone, build, and install circom
-RUN git clone https://github.com/iden3/circom.git
+RUN git clone -b v2.1.9 https://github.com/iden3/circom.git
 RUN cargo build --release --manifest-path=circom/Cargo.toml
 RUN cp circom/target/release/circom /usr/local/bin
 # install zkutil
