@@ -1,20 +1,15 @@
 # NOPE: Strengthening domain authentication with zero-knowledge
 
-_Note to artifact evaluators: DOVE is the anonymized name of the project.
-Its real name is NOPE. We use that latter term below. However, this
-README is with reference to the submitted version of the paper, as
-opposed to the camera ready (we will update the README after the camera
-ready is finalized)._
-
-_Note to everyone else: this is a README for a code artifact that
-accompanies a research paper. The research paper itself is under
-preparation and will be available by the end of September; for a
-preliminary version, please write to the authors.  Along those lines,
-please note the following Warning._
+_This is a README for a code artifact that
+accompanies the research paper:
+[NOPE: Strengthening domain authentication with succinct proofs](https://dl.acm.org/doi/10.1145/3694715.3695962).
+Along those lines, please note the following Warning._
 
 **Warning!** *NOPE is a research project.*
 *This code has not been audited and the zero-knowledge proof system uses a dummy trusted setup.*
 *Do not use NOPE in production environments or anywhere else that security is necessary.*
+
+See the bottom of this README for licensing details.
 
 There are three core pieces of NOPE, each of which is in a separate directory:
 
@@ -42,7 +37,7 @@ benchmarks require the ability to update DNS records.
 
 ### A running DNS server
 
-The reviewer account for the DNS server for [nope-tools.org](nope-tools.org)
+The reviewer account for the DNS server for [nope-tools.org](https://nope-tools.org)
 is accessible via ssh at `reviewer@34.30.228.2`
 via the password supplied in the hotcrp artifact submission.
 
@@ -209,7 +204,7 @@ All of our circuits are equipped with tests of completeness on sample data.
 To the run the tests, first run `npm install`.
 Then run `npm test` to run all tests or `mocha [testname]` in the `circuits/test/` directory to run a specific test (add option `--max-old-space-size=4000` if you see Out Of Memory). 
 
-We have provided sample test data from [nope-tools.com](nope-tools.com) and [nope-tools.me](nope-tools.me) in the `circuits/test/sdata/` directory and the tests are configured to use this data by default.
+We have provided sample test data from nope-tools.com and nope-tools.me in the `circuits/test/sdata/` directory and the tests are configured to use this data by default.
 
 To use custom test data, run `python3 fetchmin.py [your url]` which fetches sample DNS data for tests from the specified URL and places it in the `circuits/test/data/` directory.
 Then modify the appropriate test to use the new data.
@@ -265,17 +260,28 @@ To load the extension into Firefox, do the following:
 
 ### Using the extension
 
-When visiting a website, for example [nope-tools.org](nope-tools.org), the extension will check if the server is 
+When visiting a website, for example [nope-tools.org](https://nope-tools.org), the extension will check if the server is 
 using a NOPE certificate and try extract and verify the proof if found.
 
 If no proof is detected, the NOPE icon will be unchanged.
 If a NOPE proof is detected and verifies, a green checkmark will appear.
 However, if a NOPE proof is detected and verification fails, then a red X will appear indicating that the proof is invalid.
 
-## References
+## References and licenses
 
 This project contains modified code from the following sources with the following licenses
 
 - [snarkjs](https://github.com/iden3/snarkjs) which is licensed under GPL-3.0, 
 - [Bluecrypt ASN.1 Parser](https://git.coolaj86.com/coolaj86/asn1-parser.js) which is licensed under MPL-2.0, and
 - [ffjavascript](https://github.com/iden3/ffjavascript) which is licensed under GPL-3.0
+
+As a result, this project is licensed under a dual-license scheme:
+
+-  The Unlicense (see UNLICENSE)
+-  The GNU General Public License (GPL)
+
+You are free to choose either license when using this code; however,
+if you wish to use this code under the Unlicense you must do so without the snarkjs, ffjavascript, and ASN.1 parser noted above (otherwise the GPL and/or MPL applies).
+Informally this means that all circom code is under the Unlicense (and can be freely used) but the NOPE server and client programs are under GPL and/or MPL.
+
+For the unlicense terms (see UNLICENSE).
